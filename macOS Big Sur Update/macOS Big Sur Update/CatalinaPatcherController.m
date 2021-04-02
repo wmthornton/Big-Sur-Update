@@ -35,18 +35,18 @@ You should have received a copy of the GNU General Public License along with thi
     return instance;
 }
 
-
+// This is the check to determine if the downloaded installer file is a valid installer. InstallESD.dmg is replaced by SharedSupport.dmg in Big Sur.
 -(BOOL)setInstallerAppPath:(NSString *)appPath withVerification:(BOOL)verify {
     NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:[appPath stringByAppendingString:@"/Contents/Info.plist"]];
     NSString *appVersion = [dict objectForKey:@"CFBundleDisplayName"];
     //NSString *appBuildVersion = [dict objectForKey:@"DTSDKBuild"];
     installerAppVersion = [dict objectForKey:@"CFBundleShortVersionString"];
     if (verify) {
-        if ([appVersion isEqualToString:@"Install macOS 10.15 Beta"] && [[NSFileManager defaultManager]fileExistsAtPath:[appPath stringByAppendingString:@"/Contents/SharedSupport/InstallESD.dmg"]]) {
+        if ([appVersion isEqualToString:@"Install macOS Big Sur Beta"] && [[NSFileManager defaultManager]fileExistsAtPath:[appPath stringByAppendingString:@"/Contents/SharedSupport/InstallESD.dmg"]]) {
             installerAppPath = appPath;
             return YES;
         }
-        else if ([appVersion rangeOfString:@"Install macOS Catalina"].location != NSNotFound && [[NSFileManager defaultManager]fileExistsAtPath:[appPath stringByAppendingString:@"/Contents/SharedSupport/InstallESD.dmg"]]) {
+        else if ([appVersion rangeOfString:@"Install macOS Big Sur"].location != NSNotFound && [[NSFileManager defaultManager]fileExistsAtPath:[appPath stringByAppendingString:@"/Contents/SharedSupport/SharedSupport.dmg"]]) {
             installerAppPath = appPath;
             return YES;
         }

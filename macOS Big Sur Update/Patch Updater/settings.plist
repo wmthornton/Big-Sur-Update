@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>updateDataURL</key>
-	<string>http://dosdude1.com/catalina/patchupdates/updates.plist</string>
+	<string>https://github.com/wmthornton/Big-Sur-Update-Patches/blob/main/updates.plist</string>
 </dict>
 </plist>

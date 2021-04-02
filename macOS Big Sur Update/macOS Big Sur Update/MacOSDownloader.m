@@ -39,7 +39,7 @@ You should have received a copy of the GNU General Public License along with thi
 -(BOOL)macOSInstallerExistsAtPath:(NSString *)path {
     NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
     for (NSString *file in files) {
-        if ([file rangeOfString:@"Install macOS"].location != NSNotFound && ([file rangeOfString:@"Catalina"].location != NSNotFound || [file rangeOfString:@"10.15"].location != NSNotFound)) {
+        if ([file rangeOfString:@"Install macOS"].location != NSNotFound && ([file rangeOfString:@"Big Sur"].location != NSNotFound )) {
             return YES;
         }
     }
@@ -222,19 +222,20 @@ You should have received a copy of the GNU General Public License along with thi
     });
     
     for (NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:savePath error:nil]) {
-        if ([file rangeOfString:@"Install macOS"].location != NSNotFound && ([file rangeOfString:@"Catalina"].location != NSNotFound || [file rangeOfString:@"10.15"].location != NSNotFound) && [file rangeOfString:@".app"].location != NSNotFound) {
+        if ([file rangeOfString:@"Install macOS"].location != NSNotFound && ([file rangeOfString:@"Big Sur"].location != NSNotFound || [file rangeOfString:@".app"].location != NSNotFound)) {
             [[NSFileManager defaultManager] removeItemAtPath:[savePath stringByAppendingPathComponent:file] error:nil];
         }
     }
     NSTask *extractPKG = [[NSTask alloc] init];
     [extractPKG setLaunchPath: @"/bin/bash"];
-    [extractPKG setArguments: @[ @"-c", [NSString stringWithFormat:@"\"%@\" \"%@\" | cpio -i" , [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"pbzx"], [downloadPath stringByAppendingPathComponent:@"InstallAssistantAuto.pkg"]]]];
+    [extractPKG setArguments: @[ @"-c", [NSString stringWithFormat:@"\"%@\" \"%@\" | cpio -i" , [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"pbzx"], [downloadPath //stringByAppendingPathComponent:@"InstallAssistantAuto.pkg"]]]];
+                                                                                                                                            stringByAppendingPathComponent:@"InstallAssistant.pkg"]]]];
     [extractPKG setCurrentDirectoryPath:savePath];
     [extractPKG launch];
     [extractPKG waitUntilExit];
     NSString *installerFile=@"";
     for (NSString *file in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:savePath error:nil]) {
-        if ([file rangeOfString:@"Install macOS"].location != NSNotFound && ([file rangeOfString:@"Catalina"].location != NSNotFound || [file rangeOfString:@"10.15"].location != NSNotFound) && [file rangeOfString:@".app"].location != NSNotFound) {
+        if ([file rangeOfString:@"Install macOS"].location != NSNotFound && ([file rangeOfString:@"Big Sur"].location != NSNotFound || [file rangeOfString:@".app"].location != NSNotFound)) {
             installerFile = file;
         }
     }

@@ -58,7 +58,7 @@ You should have received a copy of the GNU General Public License along with thi
             else {
                 NSAlert *alert = [[NSAlert alloc] init];
                 [alert setMessageText:@"Not Valid"];
-                [alert setInformativeText:@"The application you have selected is not a valid copy of macOS Catalina."];
+                [alert setInformativeText:@"The application you have selected is not a valid copy of macOS Big Sur."];
                 [alert addButtonWithTitle:@"OK"];
                 [alert beginSheetModalForWindow:self.window modalDelegate:self didEndSelector:nil contextInfo:nil];
             }
