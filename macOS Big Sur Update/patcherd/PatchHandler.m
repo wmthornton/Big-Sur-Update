@@ -54,7 +54,7 @@ You should have received a copy of the GNU General Public License along with thi
     
     [self.delegate setProgBarMaxValue:MAX_PROGBAR_VALUE];
     [self updateProgressWithValue:progressValue+2.0];
-    [self.delegate updateProgressStatus:@"Mounting SharedSupport.dmg..."];
+    [self.delegate updateProgressStatus:@"Mounting BaseSystem.dmg..."];
     
     NSFileManager *man = [NSFileManager defaultManager];
     if ([man fileExistsAtPath:bsMount]) {
@@ -68,13 +68,13 @@ You should have received a copy of the GNU General Public License along with thi
     }
     
     InstallerPatcher *ip = [[InstallerPatcher alloc] init];
-    errID = [ip shadowMountDMGAtPath:[installerAppPath stringByAppendingPathComponent:@"Contents/SharedSupport/SharedSupport.dmg"] toMountpoint:bsMount];
+    errID = [ip shadowMountDMGAtPath:[installerAppPath stringByAppendingPathComponent:@"Contents/SharedSupport/BaseSystem.dmg"] toMountpoint:bsMount];
     if (errID) {
         [self handleError:errMountingBSImage];
         return errMountingBSImage;
     }
     
-    [self.delegate updateProgressStatus:@"Patching SharedSupport.dmg..."];
+    [self.delegate updateProgressStatus:@"Patching BaseSystem.dmg..."];
     [self updateProgressWithValue:progressValue+2.0];
     errID = [ip copyPatchedBaseSystemFilesFromDirectory:resourcePath toBSMount:bsMount];
     if (errID) {
@@ -93,16 +93,16 @@ You should have received a copy of the GNU General Public License along with thi
     
     [patcherFlags saveToDirectory:bsMount];
     
-    [self startProgressUpdateTimerWithFile:[installerAppPath stringByAppendingPathComponent:@"Contents/SharedSupport/SharedSupport.dmg"] beingCopiedToVolume:@"/"];
-    errID = [ip saveModifiedShadowDMG:[installerAppPath stringByAppendingPathComponent:@"Contents/SharedSupport/SharedSupport.dmg"] mountedAt:bsMount toPath:tmpBSDMGPath];
-    [[NSFileManager defaultManager] removeItemAtPath:[installerAppPath stringByAppendingPathComponent:@"Contents/SharedSupport/SharedSupport.dmg.shadow"] error:nil];
+    [self startProgressUpdateTimerWithFile:[installerAppPath stringByAppendingPathComponent:@"Contents/SharedSupport/BaseSystem.dmg"] beingCopiedToVolume:@"/"];
+    errID = [ip saveModifiedShadowDMG:[installerAppPath stringByAppendingPathComponent:@"Contents/SharedSupport/BaseSystem.dmg"] mountedAt:bsMount toPath:tmpBSDMGPath];
+    [[NSFileManager defaultManager] removeItemAtPath:[installerAppPath stringByAppendingPathComponent:@"Contents/SharedSupport/BaseSystem.dmg.shadow"] error:nil];
     [progTimer invalidate];
     if (errID) {
         [self handleError:errSavingBSImage];
         return errSavingBSImage;
     }
     
-    [self.delegate updateProgressStatus:@"Restoring SharedSupport.dmg..."];
+    [self.delegate updateProgressStatus:@"Restoring BaseSystem.dmg..."];
     [self updateProgressWithValue:progressValue+2.0];
     errID = [ip restoreBaseSystemDMG:tmpBSDMGPath toVolume:volumePath];
     if (errID) {
@@ -120,9 +120,9 @@ You should have received a copy of the GNU General Public License along with thi
     }
     
     
-    [self.delegate updateProgressStatus:@"Copying Patched SharedSupport.dmg..."];
+    [self.delegate updateProgressStatus:@"Copying Patched BaseSystem.dmg..."];
     //[self startProgressUpdateTimerWithFile:tmpBSDMGPath beingCopiedToVolume:volumePath];
-    [[NSFileManager defaultManager] copyItemAtPath:tmpBSDMGPath toPath:[volumePath stringByAppendingPathComponent:[installerAppName stringByAppendingPathComponent:@"Contents/SharedSupport/SharedSupport.dmg"]] error:nil];
+    [[NSFileManager defaultManager] copyItemAtPath:tmpBSDMGPath toPath:[volumePath stringByAppendingPathComponent:[installerAppName stringByAppendingPathComponent:@"Contents/SharedSupport/BaseSystem.dmg"]] error:nil];
     [[NSFileManager defaultManager] removeItemAtPath:tmpBSDMGPath error:nil];
     [[NSFileManager defaultManager] removeItemAtPath:bsMount error:nil];
     
@@ -171,7 +171,7 @@ You should have received a copy of the GNU General Public License along with thi
     
     [self.delegate setProgBarMaxValue:MAX_PROGBAR_VALUE];
     [self updateProgressWithValue:progressValue+2.0];
-    [self.delegate updateProgressStatus:@"Mounting SharedSupport.dmg..."];
+    [self.delegate updateProgressStatus:@"Mounting BaseSystem.dmg..."];
     
     NSFileManager *man = [NSFileManager defaultManager];
     if ([man fileExistsAtPath:bsMount]) {
@@ -191,12 +191,12 @@ You should have received a copy of the GNU General Public License along with thi
     
     
     InstallerPatcher *ip = [[InstallerPatcher alloc] init];
-    errID = [ip shadowMountDMGAtPath:[installerAppPath stringByAppendingPathComponent:@"Contents/SharedSupport/SharedSupport.dmg"] toMountpoint:bsMount];
+    errID = [ip shadowMountDMGAtPath:[installerAppPath stringByAppendingPathComponent:@"Contents/SharedSupport/BaseSystem.dmg"] toMountpoint:bsMount];
     if (errID) {
         [self handleError:errMountingBSImage];
         return errMountingBSImage;
     }
-    [self.delegate updateProgressStatus:@"Patching SharedSupport.dmg..."];
+    [self.delegate updateProgressStatus:@"Patching BaseSystem.dmg..."];
     [self updateProgressWithValue:progressValue+3.0];
     errID = [ip copyPatchedBaseSystemFilesFromDirectory:resourcePath toBSMount:bsMount];
     if (errID) {
